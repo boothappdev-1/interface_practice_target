@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'devise'
 
+gem 'carrierwave'
+
 gem 'starter_generators', :git => "https://github.com/rbetina/starter_generators", :branch => "boothappdev"
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin]

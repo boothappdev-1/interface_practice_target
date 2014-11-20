@@ -17,9 +17,10 @@ class FavoritesController < ApplicationController
     @favorite.dish_id = params[:dish_id]
     @favorite.venue_id = params[:venue_id]
     @favorite.notes = params[:notes]
+    @favorite.photo = params[:photo]
 
     if @favorite.save
-      redirect_to :back, :notice => "Favorite created successfully."
+      redirect_to "/", :notice => "Favorite created successfully."
     else
       render 'new'
     end
@@ -36,9 +37,10 @@ class FavoritesController < ApplicationController
     @favorite.dish_id = params[:dish_id]
     @favorite.venue_id = params[:venue_id]
     @favorite.notes = params[:notes]
+    @favorite.photo = params[:photo]
 
     if @favorite.save
-      redirect_to "/favorites", :notice => "Favorite updated successfully."
+      redirect_to "/", :notice => "Favorite updated successfully."
     else
       render 'edit'
     end

@@ -8,7 +8,9 @@
 <% end %>
 
 
-<form action="/create_favorite" class="form-horizontal">
+<form action="/create_favorite" class="form-horizontal" method="post" enctype="multipart/form-data">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
   <!-- Label and input for user_id -->
 
   <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
@@ -30,6 +32,16 @@
     </label>
     <div class="col-sm-10">
       <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name, @favorite.venue_id), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for photo -->
+  <div class="form-group">
+    <label for="photo" class="col-sm-2 control-label">
+      Photo
+    </label>
+    <div class="col-sm-10">
+      <input id="photo" type="file" name="photo" class="form-control">
     </div>
   </div>
 

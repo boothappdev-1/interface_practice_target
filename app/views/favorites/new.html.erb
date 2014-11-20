@@ -2,4 +2,67 @@
   <h1>Add Favorite</h1>
 </div>
 
-<%= render('form') %>
+<% if @favorite.errors.any? %>
+  <% @favorite.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+
+<form action="/create_favorite" class="form-horizontal" method="post" enctype="multipart/form-data">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+  <!-- Label and input for user_id -->
+
+  <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
+
+  <!-- Label and input for dish_id -->
+  <div class="form-group">
+    <label for="dish_id" class="col-sm-2 control-label">
+      Dish
+    </label>
+    <div class="col-sm-10">
+      <%= select_tag(:dish_id, options_from_collection_for_select(Dish.all, :id, :name, @favorite.dish_id), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for venue_id -->
+  <div class="form-group">
+    <label for="venue_id" class="col-sm-2 control-label">
+      Venue
+    </label>
+    <div class="col-sm-10">
+      <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name, @favorite.venue_id), :class => "form-control") %>
+    </div>
+  </div>
+
+  <!-- Label and input for photo -->
+  <div class="form-group">
+    <label for="photo" class="col-sm-2 control-label">
+      Photo
+    </label>
+    <div class="col-sm-10">
+      <input id="photo" type="file" name="photo" class="form-control">
+    </div>
+  </div>
+
+  <!-- Label and input for notes -->
+  <div class="form-group">
+    <label for="notes" class="col-sm-2 control-label">
+      Notes
+    </label>
+    <div class="col-sm-10">
+      <textarea id="notes" name="notes" placeholder="Notes" class="form-control" rows="3"><%= @favorite.notes %></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Add Favorite" class="btn btn-primary">
+    </div>
+  </div>
+</form>
+

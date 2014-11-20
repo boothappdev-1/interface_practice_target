@@ -1,0 +1,49 @@
+<div class="dish col-xs-6 col-sm-4 col-md-3 col-lg-2 item">
+  <div class="thumbnail">
+    <% favorite = current_user.favorites.find_by(:dish_id => dish.id) %>
+    <% if favorite.present? %>
+      <a href="/favorites/<%= favorite.id %>">
+        <% if favorite.photo.present? %>
+          <img src="<%= favorite.photo %>">
+        <% else %>
+          <img src="/check.svg">
+        <% end %>
+      </a>
+    <% else %>
+      <a href="/favorites/new?dish_id=<%= dish.id %>">
+        <img src="/question_mark.svg">
+      </a>
+    <% end %>
+    <div class="caption">
+      <h5 class="text-center">
+        <a href="/dishes/<%= dish.id %>"><%= dish.name %></a>
+      </h5>
+      <p class="text-muted text-center">
+        <a href="/cuisines/<%= dish.cuisine.id %>" class="label label-default"><%= dish.cuisine.name %></a>
+      </p>
+      <% if favorite.present? %>
+        <p class="lead text-center">
+          <a href="/venues/<%= favorite.venue.id %>">
+            <%= favorite.venue.name %>
+          </a>
+        </p>
+        <p class="text-center">
+          <%= favorite.notes %>
+        </p>
+        <p class="text-muted text-center">
+          <a href="/favorites/<%= favorite.id %>/edit">
+            <%= time_ago_in_words(favorite.updated_at) %> ago
+            <i class="fa fa-edit"></i>
+          </a>
+        </p>
+        <% else %>
+          <p class="lead text-center">
+            <a href="/favorites/new?dish_id=<%= dish.id %>" class="btn btn-success">
+              <i class="fa fa-plus"></i>
+            </a>
+          </p>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

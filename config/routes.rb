@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # Routes for the Favorite resource:
   # CREATE
   get('/favorites/new', { :controller => 'favorites', :action => 'new' })
-  get('/create_favorite', { :controller => 'favorites', :action => 'create' })
+  post('/create_favorite', { :controller => 'favorites', :action => 'create' })
 
   # READ
   get('/favorites', { :controller => 'favorites', :action => 'index' })
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   # UPDATE
   get('/favorites/:id/edit', { :controller => 'favorites', :action => 'edit' })
-  get('/update_favorite/:id', { :controller => 'favorites', :action => 'update' })
+  post('/update_favorite/:id', { :controller => 'favorites', :action => 'update' })
 
   # DELETE
   get('/delete_favorite/:id', { :controller => 'favorites', :action => 'destroy' })

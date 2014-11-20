@@ -13,3 +13,21 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function () {
+/* initially hide list items */
+// $("#dish-list .dish").hide();
+
+/* filter dishes as you type */
+$("#dish-search").on("keyup click input", function () {
+if (this.value.length > 0) {
+  $("#dish-list .dish").hide().filter(function () {
+    return $(this).text().toLowerCase().indexOf($("#dish-search").val().toLowerCase()) != -1;
+  }).show();
+}
+else {
+  $("#dish-list .dish").hide();
+}
+});
+
+});
