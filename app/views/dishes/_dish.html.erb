@@ -36,14 +36,13 @@
             <i class="fa fa-edit"></i>
           </a>
         </p>
-        <% else %>
-          <p class="lead text-center">
-            <a href="/favorites/new?dish_id=<%= dish.id %>" class="btn btn-success">
-              <i class="fa fa-plus"></i>
-            </a>
-          </p>
-        <% end %>
-      </p>
+      <% else %>
+        <p class="lead text-center">
+          <a href="/favorites/new?dish_id=<%= dish.id %>" class="btn btn-success">
+            <i class="fa fa-plus"></i>
+          </a>
+        </p>
+      <% end %>
     </div>
   </div>
 </div>

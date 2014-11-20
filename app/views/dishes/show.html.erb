@@ -1,13 +1,47 @@
 <div class="page-header">
-  <h1>Dish #<%= @dish.id %></h1>
+  <h1>
+    <%= @dish.name %>
+    <small><a href="/cuisines/<%= @dish.cuisine.id %>"><%= @dish.cuisine.name %></a></small>
+  </h1>
+</div>
+
+<div class="row">
+  <% @dish.favorites.each do |favorite| %>
+    <div class="dish col-xs-6 col-sm-4 col-md-3 col-lg-2 item">
+      <div class="thumbnail">
+        <a href="/favorites/<%= favorite.id %>">
+          <% if favorite.photo.present? %>
+            <img src="<%= favorite.photo %>">
+          <% else %>
+            <img src="/check.svg">
+          <% end %>
+        </a>
+        <div class="caption">
+          <h5 class="text-center">
+            <a href="/users/<%= favorite.user.id %>"><%= favorite.user.username %></a>
+          </h5>
+          <p class="lead text-center">
+            <a href="/venues/<%= favorite.venue.id %>">
+              <%= favorite.venue.name %>
+            </a>
+          </p>
+          <p class="text-center">
+            <%= favorite.notes %>
+          </p>
+          <p class="text-muted text-center">
+            <a href="/favorites/<%= favorite.id %>/edit">
+              <%= time_ago_in_words(favorite.updated_at) %> ago
+              <i class="fa fa-edit"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Name</dt>
-  <dd><%= @dish.name %></dd>
 
-  <dt>Cuisine</dt>
-  <dd><%= Cuisine.find_by({ :id => @dish.cuisine_id }).name %></dd>
 
   <dt>Favorites</dt>
   <dd>
@@ -19,18 +53,6 @@
           <%= Venue.find_by({ :id => favorite.venue_id }).name %>
         </li>
       <% end %>
-      <li>
-        <form action="/create_favorite">
-          <input type="hidden" name="user_id" value="<%= current_user.id %>">
-          <input type="hidden" name="dish_id" value="<%= @dish.id %>">
-          <%= current_user.username %>
-          <i class="fa fa-heart"></i>
-          <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name)) %>
-          <button type="submit" class="btn btn-success btn-sm">
-            <i class="fa fa-plus"></i>
-          </button>
-        </form>
-      </li>
     </ul>
   </dd>
 </dl>
