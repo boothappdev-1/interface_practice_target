@@ -1,6 +1,12 @@
-<input type="text" id="dish-search" placeholder="Search Dishes (start typing)" class="form-control">
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Dishes (start typing)" class="form-control">
+  </div>
+</div>
 
-<div id="dish-list" class="row js-masonry" data-masonry-options='{ "itemSelector": ".item" }'>
+<hr>
+
+<div id="dish-list" class="row">
   <%= render @dishes %>
 </div>
 

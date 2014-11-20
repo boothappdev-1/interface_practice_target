@@ -14,20 +14,38 @@
 //= require jquery_ujs
 //= require_tree .
 
-$(document).ready(function () {
-/* initially hide list items */
-// $("#dish-list .dish").hide();
+$( function() {
+  // quick search regex
+  var qsRegex;
 
-/* filter dishes as you type */
-$("#dish-search").on("keyup click input", function () {
-if (this.value.length > 0) {
-  $("#dish-list .dish").hide().filter(function () {
-    return $(this).text().toLowerCase().indexOf($("#dish-search").val().toLowerCase()) != -1;
-  }).show();
-}
-else {
-  $("#dish-list .dish").hide();
-}
+  // init Isotope
+  var $container = $('#dish-list').isotope({
+    itemSelector: '.item',
+    layoutMode: 'masonry',
+    filter: function() {
+      return qsRegex ? $(this).text().match( qsRegex ) : true;
+    }
+  });
+
+  // use value of search field to filter
+  var $quicksearch = $('#quicksearch').keyup( debounce( function() {
+    qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+    $container.isotope();
+  }, 200 ) );
+
 });
 
-});
+// debounce so filtering doesn't happen every millisecond
+function debounce( fn, threshold ) {
+  var timeout;
+  return function debounced() {
+    if ( timeout ) {
+      clearTimeout( timeout );
+    }
+    function delayed() {
+      fn();
+      timeout = null;
+    }
+    timeout = setTimeout( delayed, threshold || 100 );
+  }
+}
