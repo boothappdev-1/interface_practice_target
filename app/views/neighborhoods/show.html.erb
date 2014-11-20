@@ -1,20 +1,17 @@
 <div class="page-header">
-  <h1>Neighborhood #<%= @neighborhood.id %></h1>
+  <h1>
+    <%= @neighborhood.name %>
+    <small><%= @neighborhood.city %></small>
+  </h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt>Name</dt>
-  <dd><%= @neighborhood.name %></dd>
 
-  <dt>City</dt>
-  <dd><%= @neighborhood.city %></dd>
+<% current_user.venues.where(:neighborhood_id => @neighborhood.id).each do |venue| %>
+<div class="page-header">
+  <h2><%= venue.name %></h2>
+</div>
 
-  <dt>Venues</dt>
-  <dd>
-    <ul>
-      <% Venue.where({ :neighborhood_id => @neighborhood.id }).each do |venue| %>
-        <li><%= venue.name %></li>
-      <% end %>
-    </ul>
-  </dd>
-</dl>
+<div id="dish-list" class="row">
+  <%= render Dish.where(:id => current_user.favorites.where(:venue_id => venue.id).pluck(:dish_id)) %>
+</div>
+<% end %>
