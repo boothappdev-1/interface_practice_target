@@ -8,7 +8,7 @@ class FavoritesController < ApplicationController
   end
 
   def new
-    @favorite = Favorite.new
+    @favorite = Favorite.new dish_id: params[:dish_id]
   end
 
   def create
@@ -19,7 +19,7 @@ class FavoritesController < ApplicationController
     @favorite.notes = params[:notes]
 
     if @favorite.save
-      redirect_to "/favorites", :notice => "Favorite created successfully."
+      redirect_to :back, :notice => "Favorite created successfully."
     else
       render 'new'
     end

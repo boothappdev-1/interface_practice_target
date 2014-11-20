@@ -19,6 +19,18 @@
           <%= Venue.find_by({ :id => favorite.venue_id }).name %>
         </li>
       <% end %>
+      <li>
+        <form action="/create_favorite">
+          <input type="hidden" name="user_id" value="<%= current_user.id %>">
+          <input type="hidden" name="dish_id" value="<%= @dish.id %>">
+          <%= current_user.username %>
+          <i class="fa fa-heart"></i>
+          <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name)) %>
+          <button type="submit" class="btn btn-success btn-sm">
+            <i class="fa fa-plus"></i>
+          </button>
+        </form>
+      </li>
     </ul>
   </dd>
 </dl>

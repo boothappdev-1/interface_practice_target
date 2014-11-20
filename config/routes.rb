@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get("/", { :controller => "favorites", :action => "index" })
+  devise_for :users
+  root "dishes#index"
 
   # Routes for the Cuisine resource:
   # CREATE

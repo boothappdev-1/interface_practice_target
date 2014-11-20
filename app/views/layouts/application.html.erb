@@ -5,7 +5,7 @@
   <title>Best of Everything</title>
 
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/paper/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
   <style>
@@ -13,18 +13,13 @@
     body {
       padding-top: 50px;
     }
-
-    #map-canvas {
-      height: 320px;
-      width: 100%;
-    }
   </style>
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -38,18 +33,35 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/" class="navbar-brand">Best of Everything</a>
+      <a href="/" class="navbar-brand">
+        <i class="fa fa-trophy"></i>
+        Best of Everything
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/users">Users</a></li>
+        <!-- <li><a href="/cuisines">Cuisines</a></li> -->
+        <!-- <li><a href="/favorites">Favorites</a></li> -->
+        <!-- <li><a href="/users">Users</a></li> -->
+        <!-- <li><a href="/dishes">Dishes</a></li> -->
+        <!-- <li><a href="/venues">Venues</a></li> -->
         <li><a href="/neighborhoods">Neighborhoods</a></li>
-        <li><a href="/venues">Venues</a></li>
-        <li><a href="/favorites">Favorites</a></li>
-        <li><a href="/dishes">Dishes</a></li>
-        <li><a href="/cuisines">Cuisines</a></li>
+        <% if request.referer.present? %>
+        <li><a href="<%= request.referer %>">Back</a></li>
+        <% end %>
+        <!-- <li><a href="#">About</a></li> -->
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <% if current_user.present? %>
+          <li><a href="/users/edit"><%= current_user.username %></a></li>
+          <li><a href="/users/sign_out" data-method="delete">Sign out</a></li>
+        <% else %>
+          <li><a href="/users/sign_up">Sign up</a></li>
+          <li><a href="/users/sign_in">Sign in</a></li>
+        <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </nav>
